@@ -1,0 +1,68 @@
+<form action="submit()" method="post">
+  <div>
+  <div *ngIf="validnumber === 'false'" class="form-group">
+    <!-- <label for="mobile">Enter Your Mobile Number</label> -->
+    <mat-form-field style="width: 50%">
+      <input matInput jhiNumberOnly required
+            id="mobile"
+            placeholder="Enter Mobile Number without (+91)"
+            [(ngModel)]="mylogin.mobile"
+            #mobile="ngModel"
+            name="mobile"
+            value="+91" minlength="10">
+    </mat-form-field>
+    
+    <div *ngIf="mobile.dirty && mobile.invalid">
+        <small class="form-text text-danger" *ngIf="mobile.errors.required">
+            Your mobile number is required.
+        </small>
+        <small class="form-text text-danger" *ngIf="mobile.errors.minlength"
+               >
+            Your mobile number is required to be at least 10 character.
+        </small>
+        <small class="form-text text-danger" *ngIf="mobile.errors.maxlength"
+               >
+            Your mobile number cannot be longer than 20 characters.
+        </small>
+        <small class="form-text text-danger" *ngIf="mobile.errors.pattern"
+              >
+            Your mobile number can only contain digits.
+        </small>
+    </div>
+
+    <div *ngIf="validnumber === 'false'">
+        <button class="btn btn-outline-primary " [disabled]="mobile.invalid" role="button" aria-pressed="true" (click)="submit()">
+          Request OTP
+        </button>
+      </div>
+  </div>
+
+
+ <div class="row">
+   <div *ngIf="validnumber === 'true' && VerifyButtonClicked === 'false'" class="form-group col-md-3">
+     <!-- <label for="pass">Enter OTP</label> -->
+      <mat-form-field>
+        <input matInput jhiNumberOnly required type="number" class="form-control" id="pass" placeholder="otp"
+        [(ngModel)]="mylogin.verifyotp" [ngModelOptions]="{standalone: true}" >
+
+      </mat-form-field>   
+    </div>
+   </div>
+
+  <div id="recaptcha-container"></div>
+
+  <div *ngIf="validnumber === 'true' && VerifyButtonClicked === 'false'">
+      <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" (click)="verify()">Verify OTP</a>
+  </div>
+
+<div *ngIf="VerifyButtonClicked === 'true'">
+  <div class="alert alert-success" role="alert" *ngIf="isVerify === 'true'" >
+    Your Mobile is Verified Successfully. <br><br>
+   <!-- <button class="btn btn-outline-primary" (click)="success()">Activate Your Account</button> -->
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="isVerify === 'false'" >
+   failed
+  </div>
+</div><br>
+</div><br>
+</form>

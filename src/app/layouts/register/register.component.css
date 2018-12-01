@@ -1,0 +1,53 @@
+.btn {
+    height: 40px;
+    width: 300px;
+}
+.margin {
+    margin-top: 15px;
+}
+.top {
+    margin-left: 60px;
+}
+header .icon-big {
+    line-height: 140px;
+}
+
+.example-card {
+    max-width: 700px;
+}
+
+.image {
+    background-attachment: fixed;
+    height: 700px;
+    width: auto;
+}
+.f {
+    height: 300px;
+    width: 300px;
+    margin-left: 500px;
+}
+.formargin {
+    margin-left: 530px;
+    margin-top: 90px;
+}
+.btn1 {
+    border: 2px solid primary;
+}
+.btn-universal {
+    border: 2px solid #789;
+    background-color: #789;
+    color: #fff !important;
+}
+
+.btn-lg {
+    font-size: 13px !important;
+    padding: 10px 35px;
+}
+
+.list-inline > li {
+    padding-bottom: 10px;
+    vertical-align: bottom;
+}
+.col {
+    margin-left: 500px;
+}

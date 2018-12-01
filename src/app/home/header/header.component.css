@@ -1,0 +1,157 @@
+.img14 {
+    background-image: url('../../../assets/img/11.jpg');
+}
+.intro-body {
+    text-align: left;
+}
+.header-intro {
+    display: table;
+    text-align: left;
+    width: 100%;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: left left;
+    height: 100% !important;
+    z-index: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+
+.header-intro a {
+    color: #fff;
+}
+
+.header-intro a:hover {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.header-introhalf {
+    height: auto !important;
+}
+
+.header-intro .header-intro-body {
+    display: table-cell;
+    vertical-align: left;
+    padding: 300px 1 300px;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.header-intro .header-intro-body .badge {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #eee;
+    text-align: left;
+    font-size: 8px;
+    /* position: absolute; */
+    margin: -9px -14px;
+    line-height: 1;
+    text-shadow: none;
+    letter-spacing: 1px;
+    border-radius: 50% !important;
+    width: 45px;
+    height: 45px;
+    text-align: left;
+    padding: 19px 0 0 2px;
+    font-weight: 800;
+}
+
+.header-introhalf .header-intro-body {
+    padding: 150px 0 110px;
+    text-align: left;
+}
+
+.landing .header-intro-body {
+    position: absolute;
+    text-align: left;
+    background: transparent;
+}
+
+.header-intro-body {
+    text-align: left;
+    background: rgba(7, 9, 21, 0.5);
+    content: '';
+    left: 0;
+    top: 0;
+    position: 0px;
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    z-index: -9;
+}
+
+.header-intro .header-intro-body .brand-heading {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    margin: 0 0 5px;
+}
+
+.header-intro h1 {
+    font-size: 60px;
+    font-weight: 900;
+    line-height: 80px;
+}
+
+.header-intro h1.classic {
+    font-size: 100px;
+    line-height: 100px;
+    font-weight: normal;
+}
+
+.header-intro h1.classic2 {
+    font-size: 110px;
+    line-height: 110px;
+}
+
+.header-intro .lead {
+    margin: 40px 0 0;
+}
+
+.header-intro-fullscreen {
+    opacity: 1 !important;
+}
+
+.header-intro-fullscreen .header-intro-body {
+    padding: 90px 0 20px;
+}
+
+@media (max-height: 600px) {
+    .header-intro-fullscreen {
+        position: inherit;
+    }
+}
+
+@keyframes kenburns {
+    0% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@media (min-width: 768px) {
+    .header-intro {
+        padding: 0;
+    }
+    .header-intro .header-intro-body .brand-heading {
+        font-size: 46px;
+    }
+}
+
+.solid-color .header-intro-body:before,
+.solid-color2 .header-intro-body:before,
+.solid-color3 .header-intro-body:before {
+    background: transparent !important;
+}
+.solid-color.header-intro,
+.solid-color2.header-intro,
+.solid-color3.header-intro {
+    text-shadow: none !important;
+}
