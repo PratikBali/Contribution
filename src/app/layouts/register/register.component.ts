@@ -2,10 +2,10 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { Register } from 'app/account/register/register.service';
+// import { Register } from 'app/account/register/register.service';
 
-import { UserMgmtComponent } from 'app/admin';
-import { User, LoginModalService } from 'app/core';
+// import { UserMgmtComponent } from 'app/admin';
+// import { User, LoginModalService } from '../../core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -29,8 +29,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     VerifyButtonClicked = false;
     isVerify = false;
 
-    userMgmt: UserMgmtComponent;
-    users: User[];
+    // userMgmt: UserMgmtComponent;
+    // users: User[];
     param;
     message;
     letter;
@@ -39,7 +39,11 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     length;
     chars;
 
-    constructor(private loginModalService: LoginModalService, private registerService: Register, private router: Router) {}
+    constructor(
+        // private loginModalService: LoginModalService,
+        // private registerService: Register,
+        private router: Router
+        ) {}
 
     ngOnInit() {
         this.success = false;
@@ -47,9 +51,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
         this.param = this.router.url;
         if (this.param === '/register') {
-            this.registerService.isRegisterPage.next(true);
+            // this.registerService.isRegisterPage.next(true);
         } else {
-            this.registerService.isRegisterPage.next(false);
+            // this.registerService.isRegisterPage.next(false);
         }
     }
 
@@ -61,7 +65,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     register() {
         this.userid = this.registerAccount.email;
         this.registerAccount.login = this.userid;
-        const resp = grecaptcha.getResponse();
+        // const resp = grecaptcha.getResponse();
+        const resp = '';
         const x = resp.length;
         if (x === 0) {
             document.getElementById('g-recaptcha-error').innerHTML = '<span style = "color:red;">Please Verify the Captcha</span>';
@@ -76,14 +81,14 @@ export class RegisterComponent implements OnInit, AfterViewInit {
                 this.errorUserExists = null;
                 this.errorEmailExists = null;
                 this.registerAccount.langKey = 'en';
-                this.registerService.save(this.registerAccount).subscribe(
-                    () => {
-                        this.success = true;
-                    },
-                    response => {
-                        this.processError(response);
-                    }
-                );
+                // this.registerService.save(this.registerAccount).subscribe(
+                //     () => {
+                //         this.success = true;
+                //     },
+                //     response => {
+                //         this.processError(response);
+                //     }
+                // );
             }
         }
     }
@@ -143,23 +148,23 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
     findUser() {
         this.loadAll();
-        for (const user of this.users) {
-            if (user.email === this.registerAccount.email) {
-                // this.userMgmt.setActive(user, true);
-            }
-        }
+        // for (const user of this.users) {
+        //     if (user.email === this.registerAccount.email) {
+        //         // this.userMgmt.setActive(user, true);
+        //     }
+        // }
     }
 
     loadAll() {
-        this.registerService.getUsers().subscribe(data => (this.users = data));
-        this.userMgmt.loadAll();
+        // this.registerService.getUsers().subscribe(data => (this.users = data));
+        // this.userMgmt.loadAll();
     }
     onSuccess(data, headers) {
-        this.users = data;
+        // this.users = data;
     }
     onError(error) {}
 
     openLogin() {
-        this.modalRef = this.loginModalService.open();
+        // this.modalRef = this.loginModalService.open();
     }
 }

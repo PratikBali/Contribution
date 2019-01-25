@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Principal, AccountService } from 'app/core';
+// import { Principal, AccountService } from 'app/core';
 
 @Component({
     selector: 'jhi-settings',
@@ -12,32 +12,32 @@ export class SettingsComponent implements OnInit {
     settingsAccount: any;
     languages: any[];
 
-    constructor(private account: AccountService, private principal: Principal) {}
+    // constructor(private account: AccountService, private principal: Principal) {}
 
     ngOnInit() {
         console.log('calling account');
 
-        this.principal.identity().then(account => {
-            this.settingsAccount = this.copyAccount(account);
-        });
+        // this.principal.identity().then(account => {
+        //     this.settingsAccount = this.copyAccount(account);
+        // });
     }
 
     save() {
-        this.account.save(this.settingsAccount).subscribe(
-            () => {
-                this.error = null;
-                this.success = 'OK';
-                console.log('calling account');
+        // this.account.save(this.settingsAccount).subscribe(
+        //     () => {
+        //         this.error = null;
+        //         this.success = 'OK';
+        //         console.log('calling account');
 
-                this.principal.identity(true).then(account => {
-                    this.settingsAccount = this.copyAccount(account);
-                });
-            },
-            () => {
-                this.success = null;
-                this.error = 'ERROR';
-            }
-        );
+        //         this.principal.identity(true).then(account => {
+        //             this.settingsAccount = this.copyAccount(account);
+        //         });
+        //     },
+        //     () => {
+        //         this.success = null;
+        //         this.error = 'ERROR';
+        //     }
+        // );
     }
 
     copyAccount(account) {
