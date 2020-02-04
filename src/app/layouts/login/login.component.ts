@@ -121,7 +121,7 @@ export class LoginModalComponent implements AfterViewInit {
         .then(response => {
             this.account = response;
             this.authenticationError = false;
-            this.tellProject(this.account.user.uid);
+            this.tellProject(this.account);
             this.activeModal.dismiss('login success');
         })
         .catch(error => {

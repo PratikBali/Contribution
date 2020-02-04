@@ -10,12 +10,14 @@ import { AuthService } from 'src/app/core/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  account: any;
   loggedin: boolean;
   admin_role: boolean;
   isNavbarCollapsed: boolean;
   modalRef: NgbModalRef;
-  FirstName;
+  FirstName: string;
+  FullName: string;
+  account: any;
+
   constructor(
     private accountService: AccountService,
     private loginModalService: LoginModalService,
@@ -27,18 +29,31 @@ export class NavbarComponent implements OnInit {
     this.admin_role = false;
     this.loggedin = false;
     this.isNavbarCollapsed = true;
+
+    const sessionState = sessionStorage && sessionStorage.contriState;
+    if (sessionState) {
+      this.setState(JSON.parse(sessionState));
+    }
+
     this.accountService.account.subscribe(account => {
-      if (account !== false) {
+      if (account) {
         this.account = account;
-        this.loggedin = true;
-        console.log(this.account);
+        sessionStorage.setItem('contriState', JSON.stringify(this.account.additionalUserInfo));
+        this.setState(this.account.additionalUserInfo);
       } else {
-        this.account = null;
-        this.loggedin = false;
-        this.admin_role = false;
-        console.log(this.account);
+        this.logout();
       }
     });
+  }
+
+  setState(sessionState: any) {
+    if (sessionState) {
+      this.loggedin = true;
+      this.FirstName =  sessionState.profile && sessionState.profile.given_name;
+      this.FullName =  sessionState.profile && sessionState.profile.name;
+    } else {
+      this.logout();
+    }
   }
 
   collapseNavbar() {
@@ -63,9 +78,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    this.loggedin = false;
+    this.admin_role = false;
     this.collapseNavbar();
     this.authService.logout();
-    this.accountService.account.next(false);
-    // this.authenticationError = false;
   }
 }
