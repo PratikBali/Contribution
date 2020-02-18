@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Renderer, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/auth.service';
@@ -34,7 +34,7 @@ export class LoginModalComponent implements AfterViewInit {
     account: any;
 
     constructor(
-        private renderer: Renderer,
+        private renderer: Renderer2,
         private elementRef: ElementRef,
         private router: Router,
         public activeModal: NgbActiveModal,
@@ -45,7 +45,8 @@ export class LoginModalComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        setTimeout(() => this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#username'), 'focus', []), 0);
+        setTimeout(() =>
+            this.renderer.selectRootElement(this.elementRef.nativeElement.querySelector('#username'), true), 0);
     }
 
     cancel() {

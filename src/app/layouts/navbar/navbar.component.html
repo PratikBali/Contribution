@@ -15,8 +15,7 @@
                 <fa-icon [icon]="'ellipsis-v'"></fa-icon>
             </a>
         </div>
-        <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed"
-            style="margin-bottom: -13px;">
+        <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed">
             <ul class="navbar-nav ml-auto">
                 <!-- home -->
                 <li class=" nav-item active" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -29,6 +28,7 @@
                 <li class=" nav-item active" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                     <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
                         <fa-icon [icon]="'concierge-bell'" [fixedWidth]="true"></fa-icon>
+                        <em class="fas fa-concierge-bell"></em>
                         <span>Services</span>
                     </a>
                 </li>
