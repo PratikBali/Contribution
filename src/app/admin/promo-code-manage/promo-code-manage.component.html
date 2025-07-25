@@ -1,0 +1,85 @@
+<h2>
+  <div class="row justify-content-md-center bwtitle">
+    PromoCode Management
+  </div>
+  <button class="btn btn-outline-success float-right jh-create-entity" (click)="openModal(PromoModal)">
+    <fa-icon [icon]="'plus'"></fa-icon> <span>Create a new PromoCode</span>
+  </button> &nbsp;
+</h2>
+<div class="table-responsive-md table-hover table-striped ">
+  <table class="table">
+    <thead >
+      <tr >
+        <th scope="col">#</th>
+        <th scope="col">Plan</th>
+        <th scope="col">PromoCode</th>
+        <th scope="col">Expiry Date</th>
+        <th scope="col">Discount(%)</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let field of dynamicPromo; let i = index">
+        <th scope="row">{{field.id}}</th>
+        <td>{{field.plan}}</td>
+        <td>{{field.promocode}}</td>
+        <td>{{field.expiryDate }}</td>
+        <td>{{field.discount}}</td>
+        <td>
+          <button class="btn btn-outline-info"  type="button" (click)="onEditDynamicField(field.id, PromoModal)" >
+              <span> <fa-icon [icon]="'edit'"></fa-icon></span>
+          </button> 
+        </td>
+        <td>
+          <button class="btn btn-outline-danger"  type="button" (click)="deleteFieldValue(field.id)" >
+              <span> <i class="fa fa-trash" aria-hidden="true"></i></span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #PromoModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+      <h4 class="modal-title" id="PromoModal">Add or Edit Promo Code </h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <form class="example-container" #promoform="ngForm">
+          <!-- form start-->
+          <div >
+              <mat-form-field style="width: 100%;">
+                <mat-select placeholder="Select plan type" name="plantype" [(ngModel)]="promo.plan">
+                    <mat-option *ngFor="let type of PlanTypeArray" [value]="type.name">
+                    {{type.name}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+                <mat-form-field style="width: 100%;">
+                    <input required matInput placeholder="Enter PromoCode" name="promoname" [(ngModel)]="promo.promocode" >
+                </mat-form-field>
+
+                <mat-form-field style="width: 100%;">
+                  <input required matInput [matDatepicker]="picker1" placeholder="Expiry Date"
+                  [(ngModel)]="promo.expiryDate" name="expirydate">
+                  <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+                  <mat-datepicker #picker1 ></mat-datepicker>
+              </mat-form-field>
+
+                <mat-form-field style="width: 100%;">
+                    <input required matInput jhiNumberOnly placeholder="Discount Value" name="insname21" [(ngModel)]="promo.discount" >
+                </mat-form-field>
+
+              </div>  <!-- form end -->
+      </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-success" (click)="c('Save click')" [disabled]="promoform.form.invalid">Add</button>
+  </div>
+</ng-template>
+
