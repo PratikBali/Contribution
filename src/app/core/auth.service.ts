@@ -1,16 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { 
-  Auth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signInWithPopup, 
-  GoogleAuthProvider, 
-  signOut,
-  User,
-  UserCredential 
-} from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import { Observable } from 'rxjs';
-import { authState } from '@angular/fire/auth';
+import { map } from 'rxjs/operators';
 
 export interface LoginCredentials {
   username: string;
@@ -27,35 +20,35 @@ export interface RegisterData {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly auth = inject(Auth);
+  constructor(private afAuth: AngularFireAuth) {}
   
   // Observable of the current user
-  readonly user$: Observable<User | null> = authState(this.auth);
+  readonly user$: Observable<firebase.User | null> = this.afAuth.authState;
 
-  async doRegister(value: RegisterData): Promise<UserCredential> {
+  async doRegister(value: RegisterData): Promise<firebase.auth.UserCredential> {
     try {
-      return await createUserWithEmailAndPassword(this.auth, value.email, value.password);
+      return await this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password);
     } catch (error) {
       console.error('Registration error:', error);
       throw error;
     }
   }
 
-  async doEmailLogin(credentials: LoginCredentials): Promise<UserCredential> {
+  async doEmailLogin(credentials: LoginCredentials): Promise<firebase.auth.UserCredential> {
     try {
-      return await signInWithEmailAndPassword(this.auth, credentials.username, credentials.password);
+      return await this.afAuth.auth.signInWithEmailAndPassword(credentials.username, credentials.password);
     } catch (error) {
       console.error('Login error:', error);
       throw error;
     }
   }
 
-  async doGoogleLogin(): Promise<UserCredential> {
+  async doGoogleLogin(): Promise<firebase.auth.UserCredential> {
     try {
-      const provider = new GoogleAuthProvider();
+      const provider = new firebase.auth.GoogleAuthProvider();
       provider.addScope('profile');
       provider.addScope('email');
-      return await signInWithPopup(this.auth, provider);
+      return await this.afAuth.auth.signInWithPopup(provider);
     } catch (error) {
       console.error('Google login error:', error);
       throw error;
@@ -64,18 +57,20 @@ export class AuthService {
 
   async doLogout(): Promise<void> {
     try {
-      await signOut(this.auth);
+      await this.afAuth.auth.signOut();
     } catch (error) {
       console.error('Logout error:', error);
       throw error;
     }
   }
 
-  getCurrentUser(): User | null {
-    return this.auth.currentUser;
+  getCurrentUser(): Observable<firebase.User | null> {
+    return this.afAuth.authState;
   }
 
-  isLoggedIn(): boolean {
-    return this.auth.currentUser !== null;
+  isLoggedIn(): Observable<boolean> {
+    return this.afAuth.authState.pipe(
+      map(user => user !== null)
+    );
   }
 }

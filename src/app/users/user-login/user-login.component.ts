@@ -57,7 +57,7 @@ export class UserLoginComponent implements OnInit {
   }
 
   navigate() {
-    this.accountService.account.next(this.account.additionalUserInfo.profile);
+    this.accountService.setAccount(this.account.additionalUserInfo.profile);
     this.router.navigate(['profile']);
   }
 

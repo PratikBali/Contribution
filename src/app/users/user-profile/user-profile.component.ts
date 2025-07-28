@@ -17,7 +17,7 @@ export class UserProfileComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.accountService.account.subscribe(account => {
+    this.accountService.account$.subscribe(account => {
       this.account = account;
       console.log(this.account.email);
       console.log(this.account.name);

@@ -145,7 +145,7 @@ export class LoginModalComponent implements AfterViewInit {
     }
 
     tellProject(uid) {
-        this.accountService.account.next(uid);
+        this.accountService.setAccount(uid);
     }
 
     register() {

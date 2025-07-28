@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
       this.setState(JSON.parse(sessionState));
     }
 
-    this.accountService.account.subscribe(account => {
+    this.accountService.account$.subscribe(account => {
       if (account) {
         this.account = account;
         sessionStorage.setItem('contriState', JSON.stringify(this.account.additionalUserInfo));
@@ -81,6 +81,6 @@ export class NavbarComponent implements OnInit {
     this.loggedin = false;
     this.admin_role = false;
     this.collapseNavbar();
-    this.authService.logout();
+    this.authService.doLogout();
   }
 }
