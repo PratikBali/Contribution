@@ -20,10 +20,12 @@ export interface RegisterData {
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth) {}
-  
   // Observable of the current user
-  readonly user$: Observable<firebase.User | null> = this.afAuth.user;
+  readonly user$: Observable<firebase.User | null>;
+
+  constructor(private afAuth: AngularFireAuth) {
+    this.user$ = this.afAuth.user;
+  }
 
   async doRegister(value: RegisterData): Promise<firebase.auth.UserCredential> {
     try {
