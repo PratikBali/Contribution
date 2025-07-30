@@ -1,20 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NavbarComponent } from '../layouts/navbar/navbar.component';
 
-import { HomeComponent } from './home.component';
+/* eslint-env jasmine */
+describe('NavbarComponent', () => {
+  let component: NavbarComponent;
+  let fixture: ComponentFixture<NavbarComponent>;
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ NavbarComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

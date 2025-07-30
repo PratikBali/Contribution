@@ -1,22 +1,22 @@
 <div>
     <nav class="navbar navbar-dark navbar-expand-md jh-navbar fixed-top">
-        <div class="jh-logo-container float-left">
-            <a class="float-left sidebar-toggler" (click)="toggle()">
+        <div class="jh-logo-container float-start">
+            <a class="float-start sidebar-toggler" (click)="toggle()">
                 <fa-icon [icon]="'bars'"></fa-icon>
             </a>
             <!-- <img src="" alt="BucksWise"> -->
             <!-- <a > Logo</a> -->
-            <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
+            <a class="navbar-brand logo float-start" routerLink="/" (click)="collapseNavbar()">
                 <span class="logo-img"></span>
             </a>
-            <a class="jh-navbar-toggler d-lg-none float-right" href="javascript:void(0);" data-toggle="collapse"
+            <a class="jh-navbar-toggler d-lg-none float-end" href="javascript:void(0);" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation" (click)="toggleNavbar()">
                 <fa-icon [icon]="'ellipsis-v'"></fa-icon>
             </a>
         </div>
         <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ms-auto">
                 <!-- home -->
                 <li class=" nav-item active" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                     <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
@@ -121,9 +121,9 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
       <li class=" nav-item active ">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#">Home <span class="visually-hidden">(current)</span></a>
       </li>
       <li class=" nav-item active">
         <a class="nav-link" href="#">Link</a>
@@ -141,7 +141,7 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search">
+      <input class="form-control me-sm-2" type="search" placeholder="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>

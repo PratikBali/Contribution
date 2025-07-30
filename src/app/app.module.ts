@@ -84,7 +84,6 @@ import { PromoCodeManageComponent } from './admin/promo-code-manage/promo-code-m
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
   exports: [LoginModalComponent],
-  entryComponents: [LoginModalComponent],
   providers: [AuthService, LoginModalService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

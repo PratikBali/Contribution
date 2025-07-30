@@ -1,17 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserProfileComponent } from './user-profile.component';
 
+/* eslint-env jasmine */
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
   let fixture: ComponentFixture<UserProfileComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ UserProfileComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UserProfileComponent);

@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
 // import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 // import { PromoCodeManageService } from 'app/admin/promo-code-manage/promo-code-manage.service';
 import { HttpResponse } from '@angular/common/http';
-import { EventEmitter } from 'protractor';
 
 class PromoCodeModel {
     id;

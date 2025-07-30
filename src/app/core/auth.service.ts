@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+/* eslint-disable no-undef */
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -24,13 +25,15 @@ export class AuthService {
   readonly user$: Observable<firebase.User | null>;
 
   constructor(private afAuth: AngularFireAuth) {
-    this.user$ = this.afAuth.user;
+    // Use 'any' to bypass RxJS version conflicts between @angular/fire and main project
+    this.user$ = this.afAuth.user as any;
   }
 
   async doRegister(value: RegisterData): Promise<firebase.auth.UserCredential> {
     try {
       return await this.afAuth.createUserWithEmailAndPassword(value.email, value.password);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Registration error:', error);
       throw error;
     }
@@ -40,6 +43,7 @@ export class AuthService {
     try {
       return await this.afAuth.signInWithEmailAndPassword(credentials.username, credentials.password);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Login error:', error);
       throw error;
     }
@@ -52,6 +56,7 @@ export class AuthService {
       provider.addScope('email');
       return await this.afAuth.signInWithPopup(provider);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Google login error:', error);
       throw error;
     }
@@ -61,18 +66,21 @@ export class AuthService {
     try {
       await this.afAuth.signOut();
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Logout error:', error);
       throw error;
     }
   }
 
   getCurrentUser(): Observable<firebase.User | null> {
-    return this.afAuth.user;
+    // Use 'any' to bypass RxJS version conflicts
+    return this.afAuth.user as any;
   }
 
   isLoggedIn(): Observable<boolean> {
-    return this.afAuth.authState.pipe(
-      map(user => user !== null)
-    );
+    // Use 'any' to bypass RxJS version conflicts
+    return (this.afAuth.authState as any).pipe(
+      map((user: any) => user !== null)
+    ) as any;
   }
 }
