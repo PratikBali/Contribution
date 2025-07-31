@@ -18,20 +18,22 @@ import { AccountService } from 'src/app/common/account.service';
     templateUrl: './login.component.html'
 })
 export class LoginModalComponent implements AfterViewInit {
-    authenticationError: boolean;
-    password: string;
-    rememberMe: boolean;
-    username: string;
-    credentials: any;
+    authenticationError: boolean = false;
+    errorMessage: string = '';
+    password: string = '';
+    rememberMe: boolean = false;
+    username: string = '';
+    credentials: { username: string; password: string; rememberMe?: boolean } = { username: '', password: '' };
     flag = false;
-    uid;
-    isPlan;
-    isPayment;
+    uid: string = '';
+    isPlan: boolean = false;
+    isPayment: boolean = false;
 
-    PaymentArray: any = [];
-    route: any;
-    admin: any;
-    account: any;
+    PaymentArray: string[] = [];
+    route: string = '';
+    admin: boolean = false;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    account: any = null;
 
     constructor(
         private renderer: Renderer2,
@@ -41,19 +43,18 @@ export class LoginModalComponent implements AfterViewInit {
         private authService: AuthService,
         private accountService: AccountService,
     ) {
-        this.credentials = {};
+        this.credentials = { username: '', password: '' };
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         setTimeout(() =>
             this.renderer.selectRootElement(this.elementRef.nativeElement.querySelector('#username'), true), 0);
     }
 
-    cancel() {
+    cancel(): void {
         this.credentials = {
-            username: null,
-            password: null,
-            rememberMe: true
+            username: '',
+            password: '',
         };
         this.authenticationError = false;
         this.activeModal.dismiss('cancel');
@@ -71,8 +72,8 @@ export class LoginModalComponent implements AfterViewInit {
 
     }
 
-    routing() {
-        const url = this.router.url;
+    routing(): void {
+        // Method implementation pending
     }
 
     login() {
@@ -94,12 +95,11 @@ export class LoginModalComponent implements AfterViewInit {
               const errorCode = error.code;
               const errorMessage = error.message;
               if (errorCode === 'auth/wrong-password') {
-                alert('Wrong password.');
-              } else
-              if (errorCode === 'auth/invalid-email') {
-                alert('Wrong email.');
+                this.errorMessage = 'Wrong password.';
+              } else if (errorCode === 'auth/invalid-email') {
+                this.errorMessage = 'Wrong email.';
               } else {
-                alert(errorMessage);
+                this.errorMessage = errorMessage;
               }
         });
     }
@@ -112,7 +112,7 @@ export class LoginModalComponent implements AfterViewInit {
             this.tellProject(this.account.user.uid);
             this.activeModal.dismiss('login success');
         })
-        .catch(error => {
+        .catch(_error => {
             this.authenticationError = true;
         });
     }
@@ -125,27 +125,27 @@ export class LoginModalComponent implements AfterViewInit {
             this.tellProject(this.account);
             this.activeModal.dismiss('login success');
         })
-        .catch(error => {
+        .catch(_error => {
             this.authenticationError = true;
         });
     }
 
-    facebookLogin() {
-        alert('not available in this version please wait for next version');
+    facebookLogin(): void {
+        this.errorMessage = 'Feature not available in this version. Please wait for next version.';
     }
 
-    linkedinLogin() {
-        alert('not available in this version please wait for next version');
-
+    linkedinLogin(): void {
+        this.errorMessage = 'Feature not available in this version. Please wait for next version.';
     }
 
-    twitterLogin() {
-        alert('not available in this version please wait for next version');
-
+    twitterLogin(): void {
+        this.errorMessage = 'Feature not available in this version. Please wait for next version.';
     }
 
-    tellProject(uid) {
-        this.accountService.setAccount(uid);
+    tellProject(uid: string): void {
+        // Convert string to Account object format
+        const account = { id: uid, email: uid };
+        this.accountService.setAccount(account);
     }
 
     register() {

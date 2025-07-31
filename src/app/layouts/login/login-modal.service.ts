@@ -7,20 +7,23 @@ export class LoginModalService {
     private isOpen = false;
     constructor(private modalService: NgbModal) {}
 
-    open(): NgbModalRef {
+    open(): NgbModalRef | undefined {
         if (this.isOpen) {
-            return;
+            return undefined;
         }
         this.isOpen = true;
         const modalRef = this.modalService.open(LoginModalComponent);
+        
+        // Handle modal result but return the modal reference
         modalRef.result.then(
-            result => {
+            () => {
                 this.isOpen = false;
             },
-            reason => {
+            () => {
                 this.isOpen = false;
             }
         );
+        
         return modalRef;
     }
 }

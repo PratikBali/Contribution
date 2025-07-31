@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth.service';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { AccountService } from 'src/app/common/account.service';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-user-login',
@@ -10,10 +11,10 @@ import { AccountService } from 'src/app/common/account.service';
   styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent implements OnInit {
-  errorMessage: any;
-  successMessage: string;
+  errorMessage: string = '';
+  successMessage: string = '';
   registerForm: FormGroup;
-  account: any;
+  account: firebase.auth.UserCredential | null = null;
 
   constructor(
     private authService: AuthService,
@@ -26,18 +27,20 @@ export class UserLoginComponent implements OnInit {
      });
     }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  tryRegister(value) {
+  tryRegister(value: { email: string; password: string }): void {
     this.authService.doRegister(value)
     .then(res => {
+      // eslint-disable-next-line no-console
       console.log(res);
       this.errorMessage = '';
       this.successMessage = 'Your account has been created';
 
       this.navigate();
     }, err => {
+      // eslint-disable-next-line no-console
       console.log(err);
       this.errorMessage = err.message;
       this.successMessage = '';
@@ -56,9 +59,11 @@ export class UserLoginComponent implements OnInit {
   });
   }
 
-  navigate() {
-    this.accountService.setAccount(this.account.additionalUserInfo.profile);
-    this.router.navigate(['profile']);
+  navigate(): void {
+    if (this.account?.additionalUserInfo?.profile) {
+      this.accountService.setAccount(this.account.additionalUserInfo.profile);
+      this.router.navigate(['profile']);
+    }
   }
 
 }

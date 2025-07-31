@@ -10,13 +10,14 @@ import { AuthService } from 'src/app/core/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  loggedin: boolean;
-  admin_role: boolean;
-  isNavbarCollapsed: boolean;
-  modalRef: NgbModalRef;
-  FirstName: string;
-  FullName: string;
-  account: any;
+  loggedin: boolean = false;
+  admin_role: boolean = false;
+  isNavbarCollapsed: boolean = true;
+  modalRef: NgbModalRef | undefined;
+  FirstName: string = '';
+  FullName: string = '';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  account: any = null;
 
   constructor(
     private accountService: AccountService,
@@ -46,7 +47,8 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  setState(sessionState: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setState(sessionState: any): void {
     if (sessionState) {
       this.loggedin = true;
       this.FirstName =  sessionState.profile && sessionState.profile.given_name;

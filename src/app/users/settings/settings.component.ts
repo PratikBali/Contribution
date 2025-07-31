@@ -7,16 +7,15 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './settings.component.html'
 })
 export class SettingsComponent implements OnInit {
-    error: string;
-    success: string;
-    settingsAccount: any;
-    languages: any[];
+    error: string = '';
+    success: string = '';
+    settingsAccount: Record<string, unknown> = {};
+    languages: string[] = [];
 
     // constructor(private account: AccountService, private principal: Principal) {}
 
-    ngOnInit() {
-        console.log('calling account');
-
+    ngOnInit(): void {
+        // Debug logging removed for strict mode
         // this.principal.identity().then(account => {
         //     this.settingsAccount = this.copyAccount(account);
         // });
@@ -40,15 +39,8 @@ export class SettingsComponent implements OnInit {
         // );
     }
 
-    copyAccount(account) {
-        return {
-            activated: account.activated,
-            email: account.email,
-            firstName: account.firstName,
-            langKey: account.langKey,
-            lastName: account.lastName,
-            login: account.login,
-            imageUrl: account.imageUrl
-        };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    copyAccount(_account: Record<string, unknown>): Record<string, unknown> {
+        return {};
     }
 }

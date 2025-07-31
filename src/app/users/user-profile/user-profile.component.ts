@@ -8,22 +8,20 @@ import { AccountService } from 'src/app/common/account.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  account: any;
-  username: any;
+  account: { email?: string; name?: string; picture?: string } | null = null;
+  username: string = '';
 
   constructor(
     private auth: AuthService,
     private accountService: AccountService,
     ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.accountService.account$.subscribe(account => {
       this.account = account;
-      console.log(this.account.email);
-      console.log(this.account.name);
-      console.log(this.account.picture);
-
-      this.username = this.account.name;
+      if (this.account) {
+        this.username = this.account.name || '';
+      }
     });
   }
 

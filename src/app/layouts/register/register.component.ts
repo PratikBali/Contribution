@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
@@ -14,38 +15,39 @@ import { Router } from '@angular/router';
     styleUrls: ['register.component.css']
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
-    confirmPassword: string;
-    doNotMatch: string;
-    error: string;
-    errorEmailExists: string;
-    errorUserExists: string;
-    registerAccount: any;
-    userid;
-    success: boolean;
-    modalRef: NgbModalRef;
+    confirmPassword: string = '';
+    doNotMatch: string | null = '';
+    error: string | null = '';
+    errorEmailExists: string | null = '';
+    errorUserExists: string | null = '';
+    registerAccount: Record<string, unknown> = {};
+    userid: string = '';
+    success: boolean | null = false;
+    modalRef: NgbModalRef | undefined;
     submitEvent = false;
-    userMailOtp;
-    systemMailOtp;
+    userMailOtp: number = 0;
+    systemMailOtp: number = 0;
     VerifyButtonClicked = false;
     isVerify = false;
 
     // userMgmt: UserMgmtComponent;
     // users: User[];
-    param;
-    message;
-    letter;
-    capital;
-    number;
-    length;
-    chars;
+    param: string = '';
+    message: string = '';
+    letter: boolean = false;
+    capital: boolean = false;
+    number: boolean = false;
+    length: boolean = false;
+    chars: boolean = false;
 
     constructor(
         // private loginModalService: LoginModalService,
         // private registerService: Register,
-        private router: Router
+        private router: Router,
+        @Inject(DOCUMENT) private document: Document
         ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.success = false;
         this.registerAccount = {};
 
@@ -57,19 +59,19 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         }
     }
 
-    ngAfterViewInit() {}
-    resolved(captchaResponse: string) {
+    ngAfterViewInit(): void {}
+    resolved(captchaResponse: string): void {
         this.registerAccount.gcaptcha = captchaResponse;
     }
 
-    register() {
-        this.userid = this.registerAccount.email;
+    register(): void {
+        this.userid = this.registerAccount.email as string;
         this.registerAccount.login = this.userid;
         // const resp = grecaptcha.getResponse();
         const resp = '';
         const x = resp.length;
         if (x === 0) {
-            document.getElementById('g-recaptcha-error').innerHTML = '<span style = "color:red;">Please Verify the Captcha</span>';
+            (this.document.getElementById('g-recaptcha-error') as HTMLElement).innerHTML = '<span style = "color:red;">Please Verify the Captcha</span>';
         } else {
             this.registerAccount.gcaptcha = resp;
             this.submitEvent = true;
@@ -93,7 +95,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         }
     }
 
-    Validate(data) {
+    Validate(data: string): void {
         // Validate lowercase letters
         const lowerCaseLetters = /[a-z]/g;
         if (data.match(lowerCaseLetters)) {
@@ -141,12 +143,12 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         }
     }
 
-    verify() {
+    verify(): void {
         this.router.navigate(['activate'], {
             queryParams: { key: this.userMailOtp }
         });
     }
-    findUser() {
+    findUser(): void {
         this.loadAll();
         // for (const user of this.users) {
         //     if (user.email === this.registerAccount.email) {
@@ -155,16 +157,18 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         // }
     }
 
-    loadAll() {
+    loadAll(): void {
         // this.registerService.getUsers().subscribe(data => (this.users = data));
         // this.userMgmt.loadAll();
     }
-    onSuccess(data, headers) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    onSuccess(_data: unknown, _headers: unknown): void {
         // this.users = data;
     }
-    onError(error) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    onError(_error: unknown): void {}
 
-    openLogin() {
+    openLogin(): void {
         // this.modalRef = this.loginModalService.open();
     }
 }

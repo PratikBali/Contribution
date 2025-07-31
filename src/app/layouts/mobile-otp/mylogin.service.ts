@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 export class MyloginService {
     constructor(private http: HttpClient) {}
 
-    public submit(param) {
+    public submit(param: { otp: string; mobile: string }): Observable<unknown> {
         const template = 'Hello%20';
         const key = '243018AQaDBh0K5bc59c71';
         const message = 'Your%20Buckswise%20OTP%20is%20:%20';

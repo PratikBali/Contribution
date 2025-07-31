@@ -25,7 +25,8 @@ export class AuthService {
   readonly user$: Observable<firebase.User | null>;
 
   constructor(private afAuth: AngularFireAuth) {
-    // Use 'any' to bypass RxJS version conflicts between @angular/fire and main project
+    // Type assertion needed due to RxJS version conflicts between @angular/fire and main project
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.user$ = this.afAuth.user as any;
   }
 
@@ -73,14 +74,18 @@ export class AuthService {
   }
 
   getCurrentUser(): Observable<firebase.User | null> {
-    // Use 'any' to bypass RxJS version conflicts
+    // Type assertion needed due to RxJS version conflicts between @angular/fire and main project
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this.afAuth.user as any;
   }
 
   isLoggedIn(): Observable<boolean> {
-    // Use 'any' to bypass RxJS version conflicts
+    // Type assertion needed due to RxJS version conflicts between @angular/fire and main project
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (this.afAuth.authState as any).pipe(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       map((user: any) => user !== null)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ) as any;
   }
 }

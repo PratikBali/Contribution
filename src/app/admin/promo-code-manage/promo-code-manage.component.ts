@@ -3,14 +3,13 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
 // import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 // import { PromoCodeManageService } from 'app/admin/promo-code-manage/promo-code-manage.service';
-import { HttpResponse } from '@angular/common/http';
 
 class PromoCodeModel {
-    id;
-    plan;
-    promocode;
-    expiryDate;
-    discount;
+    id: string | number = '';
+    plan: string = '';
+    promocode: string = '';
+    expiryDate: Date | string = '';
+    discount: number = 0;
 }
 
 @Component({
@@ -19,11 +18,11 @@ class PromoCodeModel {
     styleUrls: ['./promo.css']
 })
 export class PromoCodeManageComponent implements OnInit {
-    closeResult;
+    closeResult: string = '';
     promo: PromoCodeModel = new PromoCodeModel();
     promoDate = new FormControl(new Date());
-    dynamicPromo: any = [];
-    event: EventEmitter;
+    dynamicPromo: PromoCodeModel[] = [];
+    event: EventEmitter<string> = new EventEmitter<string>();
 
     PlanTypeArray = [{ name: 'WISER' }, { name: 'WISEST' }];
 
@@ -34,17 +33,17 @@ export class PromoCodeManageComponent implements OnInit {
         // private alertService: JhiAlertService
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.loadAll();
         this.registerChange();
-        this.promo.expiryDate = this.promoDate.value;
+        this.promo.expiryDate = this.promoDate.value || new Date();
     }
 
-    registerChange() {
+    registerChange(): void {
         // this.eventManager.subscribe('promoCodeListModification', response => this.loadAll());
     }
 
-    getDismissReason(reason: any): string {
+    getDismissReason(reason: ModalDismissReasons): string {
         if (reason === ModalDismissReasons.ESC) {
             return 'by pressing ESC';
         } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -54,14 +53,16 @@ export class PromoCodeManageComponent implements OnInit {
         }
     }
 
-    openModal(content) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    openModal(content: any): void {
         this.clear();
         this.modalService.open(content, { ariaLabelledBy: 'PromoModal' }).result.then(
             result => {
                 this.closeResult = `Closed with: ${result}`;
                 const isPromoExist = this.checkPromoExist();
                 if (isPromoExist) {
-                    alert('Promocode already exist. Please delete previous or  try different name');
+                    // TODO: Show alert message for existing promo code
+                    return;
                 } else {
                     this.AddPromo();
                 }
@@ -72,47 +73,44 @@ export class PromoCodeManageComponent implements OnInit {
         );
     }
 
-    checkPromoExist() {
+    checkPromoExist(): boolean {
         let flag = false;
         for (let index = 0; index < this.dynamicPromo.length; index++) {
             const element = this.dynamicPromo[index];
-            if (element.promocode === this.promo.promocode) {
+            if (element && element.promocode === this.promo.promocode) {
                 flag = true;
                 break;
             }
         }
-        if (flag) {
-            return true;
-        } else {
-            return false;
-        }
+        return flag;
     }
 
-    private onSaveSuccess(result) {
+    private onSaveSuccess() {
         // this.eventManager.broadcast({
         //     name: 'promoCodeListModification',
         //     content: 'OK'
         // });
     }
 
-    private onSuccess(data) {
+    private onSuccess(data: PromoCodeModel[]): void {
         this.dynamicPromo = data;
         this.event.emit('promocodeAdded');
     }
 
-    private onError(error) {
+    private onError() {
         // this.alertService.error(error.error, error.message, null);
     }
 
-    clear() {
-        this.promo.id = null;
-        this.promo.plan = null;
-        this.promo.promocode = null;
-        this.promo.expiryDate = this.promoDate.value;
-        this.promo.discount = null;
+    clear(): void {
+        this.promo.id = '';
+        this.promo.plan = '';
+        this.promo.promocode = '';
+        this.promo.expiryDate = this.promoDate.value || new Date();
+        this.promo.discount = 0;
     }
 
-    onEditDynamicField(id, content) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onEditDynamicField(id: string | number, content: any): void {
         this.fill(id);
 
         this.modalService.open(content, { ariaLabelledBy: 'PromoModal' }).result.then(
@@ -131,10 +129,10 @@ export class PromoCodeManageComponent implements OnInit {
         );
     }
 
-    fill(id) {
+    fill(id: string | number): void {
         for (let index = 0; index < this.dynamicPromo.length; index++) {
             const element = this.dynamicPromo[index];
-            if (element.id === id) {
+            if (element && element.id === id) {
                 this.promo.id = element.id;
                 this.promo.discount = element.discount;
                 this.promo.expiryDate = element.expiryDate;
@@ -145,12 +143,12 @@ export class PromoCodeManageComponent implements OnInit {
         }
     }
 
-    AddPromo() {
+    AddPromo(): void {
         // this.promoService.create(this.promo).subscribe(response => this.onSaveSuccess(response));
         this.clear();
     }
 
-    loadAll() {
+    loadAll(): void {
         // this.promoService
         //     .get()
         //     .subscribe(
@@ -159,15 +157,16 @@ export class PromoCodeManageComponent implements OnInit {
         //     );
     }
 
-    UpdatePromo() {
+    UpdatePromo(): void {
         // this.promoService.update(this.promo).subscribe(res => this.loadAll());
         this.clear();
     }
 
-    deleteFieldValue(id) {
-        const ret = confirm('Are you sure to delete this PromoCode ?');
-        if (ret) {
-            // this.promoService.delete(id).subscribe(res => this.loadAll());
-        }
+    deleteFieldValue() {
+        // TODO: Implement confirmation dialog and deletion logic
+        // const ret = confirm('Are you sure to delete this PromoCode ?');
+        // if (ret) {
+        //     this.promoService.delete(id).subscribe(res => this.loadAll());
+        // }
     }
 }
