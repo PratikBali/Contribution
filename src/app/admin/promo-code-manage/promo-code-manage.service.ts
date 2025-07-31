@@ -11,7 +11,6 @@ export class PromoCodeManageService {
 
   constructor(private http: HttpClient) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   create(_data: Record<string, unknown>): Observable<unknown> {
     // return this.http.post(this.url, data, { observe: 'response' });
     return of(null);
@@ -20,12 +19,10 @@ export class PromoCodeManageService {
     // return this.http.get(this.url, { observe: 'response' });
     return of(null);
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(_data: Record<string, unknown>): Observable<unknown> {
     // return this.http.put(this.url, data, { observe: 'response' });
     return of(null);
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   delete(_id: string | number): Observable<unknown> {
     // return this.http.delete(this.url + '/' + id, { observe: 'response' });
     return of(null);

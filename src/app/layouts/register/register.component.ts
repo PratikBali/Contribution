@@ -161,11 +161,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         // this.registerService.getUsers().subscribe(data => (this.users = data));
         // this.userMgmt.loadAll();
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onSuccess(_data: unknown, _headers: unknown): void {
         // this.users = data;
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onError(_error: unknown): void {}
 
     openLogin(): void {

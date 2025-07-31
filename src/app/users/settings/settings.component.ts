@@ -39,7 +39,6 @@ export class SettingsComponent implements OnInit {
         // );
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     copyAccount(_account: Record<string, unknown>): Record<string, unknown> {
         return {};
     }

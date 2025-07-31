@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o",
-    "build": "ng build --configuration production",
+    "start": "nx serve -o",
+    "build": "nx build --configuration production",
     "tsc": "tsc --noEmit",
     "tsc:watch": "tsc --noEmit --watch",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "test": "nx test",
+    "lint": "nx lint",
+    "e2e": "nx e2e"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +42,8 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.10",
+    "@angular-devkit/core": "^18.2.10",
+    "@angular-devkit/schematics": "^18.2.10",
     "@angular-eslint/builder": "20.1.1",
     "@angular-eslint/eslint-plugin": "20.1.1",
     "@angular-eslint/eslint-plugin-template": "20.1.1",
@@ -50,6 +52,9 @@
     "@angular/cli": "^18.2.10",
     "@angular/compiler-cli": "^18.2.13",
     "@angular/language-service": "^18.2.13",
+    "@nx/angular": "21.3.10",
+    "@nx/workspace": "21.3.10",
+    "@schematics/angular": "^18.2.10",
     "@types/eslint": "^8.56.12",
     "@types/jasmine": "^3.5.3",
     "@types/node": "^20.17.9",
@@ -66,6 +71,7 @@
     "karma-coverage": "^2.2.1",
     "karma-jasmine": "~3.1.1",
     "karma-jasmine-html-reporter": "^1.5.2",
+    "nx": "21.3.10",
     "ts-node": "~8.6.2",
     "typescript": "5.5.4"
   }
