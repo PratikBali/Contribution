@@ -94,8 +94,8 @@ export class AccountService {
       try {
         const account = JSON.parse(stored) as Account;
         this.accountSubject.next(account);
-      } catch (error) {
-        console.error('Error parsing stored account:', error);
+      } catch {
+        // Remove corrupted data silently
         sessionStorage.removeItem('contriAccount');
       }
     }

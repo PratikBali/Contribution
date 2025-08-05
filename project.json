@@ -21,7 +21,9 @@
         ],
         "styles": [
           "src/styles.scss",
-          "node_modules/bootstrap/dist/css/bootstrap.min.css"
+          "node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "src/assets/css/animate.css",
+          "src/assets/css/universal.css"
         ],
         "scripts": [
           "node_modules/jquery/dist/jquery.min.js",

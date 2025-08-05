@@ -86,34 +86,67 @@ export class LoginModalComponent implements AfterViewInit {
         .then(response => {
             this.account = response;
             this.authenticationError = false;
-            this.tellProject(this.account.user.uid);
+            this.errorMessage = '';
+            
+            // Set account with proper user data
+            if (response.user) {
+                const userAccount = {
+                    id: response.user.uid,
+                    email: response.user.email || '',
+                    name: response.user.displayName || '',
+                    picture: response.user.photoURL || '',
+                    firstName: response.user.displayName?.split(' ')[0] || '',
+                    lastName: response.user.displayName?.split(' ').slice(1).join(' ') || '',
+                    activated: response.user.emailVerified
+                };
+                this.accountService.setAccount(userAccount);
+            }
+            
             this.activeModal.dismiss('login success');
         })
         .catch(error => {
             this.authenticationError = true;
-              // Handle Errors here.
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              if (errorCode === 'auth/wrong-password') {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            if (errorCode === 'auth/wrong-password') {
                 this.errorMessage = 'Wrong password.';
-              } else if (errorCode === 'auth/invalid-email') {
+            } else if (errorCode === 'auth/invalid-email') {
                 this.errorMessage = 'Wrong email.';
-              } else {
+            } else {
                 this.errorMessage = errorMessage;
-              }
+            }
         });
     }
 
+    // This method seems to be for Google login based on the implementation
+    // Consider renaming to avoid confusion
     emailLogin() {
         this.authService.doGoogleLogin()
         .then(response => {
             this.account = response;
             this.authenticationError = false;
-            this.tellProject(this.account.user.uid);
+            this.errorMessage = '';
+            
+            // Set account with proper user data
+            if (response.user) {
+                const userAccount = {
+                    id: response.user.uid,
+                    email: response.user.email || '',
+                    name: response.user.displayName || '',
+                    picture: response.user.photoURL || '',
+                    firstName: response.user.displayName?.split(' ')[0] || '',
+                    lastName: response.user.displayName?.split(' ').slice(1).join(' ') || '',
+                    activated: response.user.emailVerified
+                };
+                this.accountService.setAccount(userAccount);
+            }
+            
             this.activeModal.dismiss('login success');
         })
-        .catch(_error => {
+        .catch(error => {
             this.authenticationError = true;
+            this.errorMessage = error.message || 'Google login failed. Please try again.';
         });
     }
 
@@ -122,11 +155,27 @@ export class LoginModalComponent implements AfterViewInit {
         .then(response => {
             this.account = response;
             this.authenticationError = false;
-            this.tellProject(this.account);
+            this.errorMessage = '';
+            
+            // Set account with proper user data
+            if (response.user) {
+                const userAccount = {
+                    id: response.user.uid,
+                    email: response.user.email || '',
+                    name: response.user.displayName || '',
+                    picture: response.user.photoURL || '',
+                    firstName: response.user.displayName?.split(' ')[0] || '',
+                    lastName: response.user.displayName?.split(' ').slice(1).join(' ') || '',
+                    activated: response.user.emailVerified
+                };
+                this.accountService.setAccount(userAccount);
+            }
+            
             this.activeModal.dismiss('login success');
         })
-        .catch(_error => {
+        .catch(error => {
             this.authenticationError = true;
+            this.errorMessage = error.message || 'Google login failed. Please try again.';
         });
     }
 

@@ -32,37 +32,50 @@ export class UserLoginComponent implements OnInit {
 
   tryRegister(value: { email: string; password: string }): void {
     this.authService.doRegister(value)
-    .then(res => {
-      // eslint-disable-next-line no-console
-      console.log(res);
+    .then(_res => {
       this.errorMessage = '';
       this.successMessage = 'Your account has been created';
-
       this.navigate();
     }, err => {
-      // eslint-disable-next-line no-console
-      console.log(err);
       this.errorMessage = err.message;
       this.successMessage = '';
     });
   }
 
-  googleLogin() {
+  googleLogin(): void {
     this.authService.doGoogleLogin().then(account => {
       this.account = account;
-      // console.log(this.account.additionalUserInfo.profile);
-      // console.log(this.account.additionalUserInfo.profile.email);
-      // console.log(this.account.additionalUserInfo.profile.name);
-      // console.log(this.account.additionalUserInfo.profile.picture);
+      this.errorMessage = '';
+      this.successMessage = 'Successfully logged in with Google';
+      
+      // Set account with proper user data
+      if (account.user) {
+        const userAccount = {
+          id: account.user.uid,
+          email: account.user.email || '',
+          name: account.user.displayName || '',
+          picture: account.user.photoURL || '',
+          firstName: account.user.displayName?.split(' ')[0] || '',
+          lastName: account.user.displayName?.split(' ').slice(1).join(' ') || '',
+          activated: account.user.emailVerified
+        };
+        this.accountService.setAccount(userAccount);
+      }
+      
       this.navigate();
-
-  });
+    }).catch(error => {
+      this.errorMessage = error.message || 'Google login failed. Please try again.';
+      this.successMessage = '';
+    });
   }
 
   navigate(): void {
-    if (this.account?.additionalUserInfo?.profile) {
-      this.accountService.setAccount(this.account.additionalUserInfo.profile);
+    if (this.account?.user) {
+      // Account is already set in the service, just navigate
       this.router.navigate(['profile']);
+    } else {
+      // Fallback navigation to home if no account data
+      this.router.navigate(['/']);
     }
   }
 
