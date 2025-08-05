@@ -5,11 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './core/auth.service';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
-library.add(fas, far);
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { 
+  faUser, 
+  faCog, 
+  faBars, 
+  faEllipsisV, 
+  faHome, 
+  faConciergeBell, 
+  faHandshake, 
+  faUserPlus, 
+  faTasks, 
+  faClock, 
+  faSignOutAlt,
+  faSignInAlt 
+} from '@fortawesome/free-solid-svg-icons';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -88,4 +98,21 @@ import { PromoCodeManageComponent } from './admin/promo-code-manage/promo-code-m
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(library: FaIconLibrary) {
+    library.addIcons(
+      faUser, 
+      faCog, 
+      faBars, 
+      faEllipsisV, 
+      faHome, 
+      faConciergeBell, 
+      faHandshake, 
+      faUserPlus, 
+      faTasks, 
+      faClock, 
+      faSignOutAlt,
+      faSignInAlt
+    );
+  }
+}

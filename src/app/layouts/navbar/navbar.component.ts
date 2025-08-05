@@ -3,6 +3,20 @@ import { AccountService } from 'src/app/common/account.service';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LoginModalService } from '../login/login-modal.service';
 import { AuthService } from 'src/app/core/auth.service';
+import { 
+  faUser, 
+  faCog, 
+  faBars, 
+  faEllipsisV, 
+  faHome, 
+  faConciergeBell, 
+  faHandshake, 
+  faUserPlus, 
+  faTasks, 
+  faClock, 
+  faSignOutAlt,
+  faSignInAlt 
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +32,20 @@ export class NavbarComponent implements OnInit {
   FullName: string = '';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   account: any = null;
+
+  // FontAwesome icons
+  faUser = faUser;
+  faCog = faCog;
+  faBars = faBars;
+  faEllipsisV = faEllipsisV;
+  faHome = faHome;
+  faConciergeBell = faConciergeBell;
+  faHandshake = faHandshake;
+  faUserPlus = faUserPlus;
+  faTasks = faTasks;
+  faClock = faClock;
+  faSignOutAlt = faSignOutAlt;
+  faSignInAlt = faSignInAlt;
 
   constructor(
     private accountService: AccountService,
