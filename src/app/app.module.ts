@@ -4,6 +4,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './core/auth.service';
+import { FirebaseAppCheckService } from './core/firebase-app-check.service';
 import { GoogleLoginService } from './layouts/login/google-login.service';
 
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
@@ -95,7 +96,7 @@ import { PromoCodeManageComponent } from './admin/promo-code-manage/promo-code-m
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
   exports: [LoginModalComponent],
-  providers: [AuthService, LoginModalService, GoogleLoginService],
+  providers: [AuthService, LoginModalService, GoogleLoginService, FirebaseAppCheckService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
